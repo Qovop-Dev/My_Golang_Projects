@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"helloyou/helloyou"
 	"os"
+
+	"github.com/Qovop-Dev/My_Golang_Projects/Hello_You/helloyou"
 )
 
 func main() {
