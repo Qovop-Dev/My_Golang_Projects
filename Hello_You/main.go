@@ -7,7 +7,7 @@ import (
 	"github.com/Qovop-Dev/My_Golang_Projects/Hello_You/helloyou"
 )
 
-func Start() {
+func main() {
 
 	n, err := helloyou.AskName()
 	if err != nil {
