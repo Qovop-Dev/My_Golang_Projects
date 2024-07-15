@@ -22,13 +22,12 @@ func Start(g *game.Game) {
 		os.Exit(1)
 	}
 
-	hg, err := NewHangmanGame(8, dictionary.PickWord())
+	hg, err := NewHangmanGame(g, 8, dictionary.PickWord())
 	if err != nil {
 		fmt.Printf("Could not create game: %v\n", err)
 		os.Exit(1)
 	}
 
-	display.DrawWelcomeHangman()
 	guess := ""
 	for {
 		display.Draw(hg.HangmanGame, guess)
@@ -49,9 +48,9 @@ func Start(g *game.Game) {
 	}
 }
 
-func NewHangmanGame(turns int, word string) (*ThisHangmanGame, error) {
+func NewHangmanGame(g *game.Game, turns int, word string) (*ThisHangmanGame, error) {
 	if len(word) < 3 {
-		return nil, fmt.Errorf("Word '%s' must be at least 3 characters. got=%v", word, len(word))
+		return nil, fmt.Errorf("word '%s' must be at least 3 characters. got=%v", word, len(word))
 	}
 
 	letters := strings.Split(strings.ToUpper(word), "")
@@ -63,6 +62,8 @@ func NewHangmanGame(turns int, word string) (*ThisHangmanGame, error) {
 	hg := &ThisHangmanGame{
 		HangmanGame: &game.HangmanGame{
 			Game: game.Game{
+				Name:   g.Name,
+				State:  g.State,
 				Points: 10.0,
 			},
 			Letters:      letters,
@@ -70,6 +71,9 @@ func NewHangmanGame(turns int, word string) (*ThisHangmanGame, error) {
 			TurnsLeft:    turns,
 		},
 	}
+	fmt.Printf("Name%v\n", hg.Name)
+	fmt.Printf("State%v\n", hg.State)
+	fmt.Printf("Points%v\n", hg.Points)
 
 	return hg, nil
 }

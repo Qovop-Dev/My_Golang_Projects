@@ -33,9 +33,24 @@ func DrawWelcomeHangman() {
 ---------------------------------------------------------------`)
 }
 
+func DrawWelcomeTicTacToe() {
+
+	//https://patorjk.com/software/taag
+	//bubble font
+	fmt.Println(`
+---------------------------------------------------------------
+   _   _   _   _   _   _   _   _   _   _   _  
+  / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ 
+ ( T | i | c | - | T | a | c | - | T | o | e )
+  \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+
+---------------------------------------------------------------`)
+	fmt.Println("\n You will play 'X'\n")
+}
+
 func Draw(hg *game.HangmanGame, guess string) {
 	drawTurns(hg.TurnsLeft)
-	drawState(hg, guess)
+	DrawStateHangman(hg, guess)
 	fmt.Println()
 }
 
@@ -155,7 +170,35 @@ func drawLetters(g []string) {
 	fmt.Println()
 }
 
-func drawState(g *game.HangmanGame, guess string) {
+func DrawBoard(tg *game.TicTacToeGame) {
+
+	alpha := []string{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
+
+	board := " "
+	//alim en-tete
+	for j := 1; j <= tg.Size; j++ {
+		board += "   " + fmt.Sprint(j)
+	}
+	//alim lignes
+	for i := 0; i < tg.Size; i++ {
+		//valeur
+		board += "\n" + alpha[i] + " | "
+		for j := 0; j < tg.Size; j++ {
+			board += tg.Move[i][j] + " | "
+		}
+		//séparateur
+		board += "\n" + "  -"
+		for j := 1; j < tg.Size; j++ {
+			board += "---+"
+		}
+		board += "----"
+	}
+	fmt.Println(board)
+
+}
+
+func DrawStateHangman(g *game.HangmanGame, guess string) {
+
 	fmt.Print("Guessed: ")
 	drawLetters(g.FoundLetters)
 
@@ -170,15 +213,35 @@ func drawState(g *game.HangmanGame, guess string) {
 	case "badGuess":
 		fmt.Printf("Bad guess, '%s' is not in the word.\n", guess)
 	case "lost":
-		fmt.Print("You lost :(! The word was: ")
+		fmt.Print("You lost :( !")
+		fmt.Print("\nThe word was: ")
 		drawLetters(g.Letters)
+
 	case "won":
-		fmt.Print("\nYOU WON! The word was: ")
+		fmt.Print("\nYOU WON!")
+		fmt.Print("\nThe word was: ")
 		drawLetters(g.Letters)
 		if g.Points < 1 {
 			g.Points = 1
 		}
 		fmt.Printf("\nYou got %v points!", g.Points)
+
+	case "draw":
+		fmt.Println("Nobody won... Maybe next time...")
 	}
 	fmt.Println()
+}
+
+func DrawStateTicTacToe(tg *game.TicTacToeGame) {
+
+	switch tg.State {
+	case "won":
+		fmt.Println("YOU WON!")
+
+	case "lost":
+		fmt.Println("You lost :( ! ")
+
+	case "draw":
+		fmt.Println("Nobody won... Maybe next time...")
+	}
 }

@@ -18,6 +18,12 @@ type HangmanGame struct {
 	TurnsLeft    int
 }
 
+type TicTacToeGame struct {
+	Game
+	Move [][]string
+	Size int
+}
+
 func NewGame(gameName string) (*Game, error) {
 
 	g := &Game{
