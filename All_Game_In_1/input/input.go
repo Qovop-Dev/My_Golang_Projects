@@ -63,7 +63,7 @@ func AskName() (u game.User, err error) {
 func ReadChoice() (choice string, err error) {
 	valid := false
 	for !valid {
-		fmt.Print("Choose your game:\n\n\t1) Hangman\n\n\t2) Tic-Tac-Toe\n\nYour Choice: ")
+		fmt.Print("Choose your game:\n\n\t1) Hangman\n\n\t2) Tic-Tac-Toe (comming today)\n\nYour Choice: ")
 		choice, err = reader.ReadString('\n')
 		if err != nil {
 			return choice, err
@@ -79,6 +79,12 @@ func ReadChoice() (choice string, err error) {
 			fmt.Printf("\nInvalid choice input (choice = %v).\n\n", choice)
 			continue
 		}
+
+		if choice == "2" {
+			fmt.Print("\nTic-Tac-Toe not implemented yet, comming today.\n\n")
+			continue
+		}
+
 		valid = true
 	}
 	return choice, nil
