@@ -34,8 +34,7 @@ func New(size int) (*TicTacToeGame, error) {
 	return tg, nil
 }
 
-func (tg *TicTacToeGame) MakeAGuess(l, c int) {
-	//guess = strings.ToUpper(guess)
+func (tg *TicTacToeGame) MakeAGuess() {
 
 	switch tg.State {
 	case "won", "lost", "draw":
@@ -45,26 +44,28 @@ func (tg *TicTacToeGame) MakeAGuess(l, c int) {
 	//check if user has won
 	if hasWon(tg.Move, tg.Size, "X") {
 		tg.State = "won"
-		fmt.Println("You Won")
+		DrawState(tg)
+		return
 	}
 
 	//check if game is over
-	if isDraw(tg.Move, tg.Size) {
+	if isDraw(tg.Move) {
 		tg.State = "draw"
-		fmt.Println("Nobody Won")
+		DrawState(tg)
+		return
 	}
 
 	//qovop turn to play
+	fmt.Println("\nQovop turn to Play 'O'")
 	qovopPlay(tg.Move, tg.Size)
 	DrawBoard(tg)
 
 	//check if qovop has won
 	if hasWon(tg.Move, tg.Size, "O") {
 		tg.State = "lost"
-		fmt.Println("You lost")
+		DrawState(tg)
+		return
 	}
-
-	DrawState(tg)
 
 }
 
@@ -125,7 +126,7 @@ func hasWon(moves [][]string, size int, player string) bool {
 	return false
 }
 
-func isDraw(moves [][]string, size int) bool {
+func isDraw(moves [][]string) bool {
 
 	//check win on all line
 	for i := range moves {

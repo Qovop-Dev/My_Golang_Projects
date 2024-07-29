@@ -35,13 +35,13 @@ func main() {
 			os.Exit(0)
 		}
 
-		l, c, err := tictactoe.ReadGuess(tg)
+		err := tictactoe.ReadGuess(tg)
 		if err != nil {
 			fmt.Printf("Could not read from terminal: %v", err)
 			os.Exit(1)
 		}
 
-		tg.MakeAGuess(l, c)
+		tg.MakeAGuess()
 	}
 
 }

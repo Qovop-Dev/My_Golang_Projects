@@ -35,14 +35,14 @@ func ReadChoice() (choice string, err error) {
 	return choice, nil
 }
 
-func ReadGuess(tg *TicTacToeGame) (l, c int, err error) {
+func ReadGuess(tg *TicTacToeGame) (err error) {
 	alpha := []string{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
 	valid := false
 	for !valid {
 		fmt.Print("What is your position ? ")
 		guess, err := reader.ReadString('\n')
 		if err != nil {
-			return l, c, err
+			return err
 		}
 		guess = strings.TrimSpace(guess)
 		if len(guess) != 2 {
@@ -76,5 +76,5 @@ func ReadGuess(tg *TicTacToeGame) (l, c int, err error) {
 		DrawBoard(tg)
 
 	}
-	return l, c, nil
+	return nil
 }
